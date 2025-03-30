@@ -14,7 +14,8 @@ type Props = {
   onEditTodoTitle: (
     id: number,
     value: string,
-    setIsEditing: Dispatch<SetStateAction<boolean>>) => void
+    setIsEditing: Dispatch<SetStateAction<boolean>>,
+  ) => void;
 };
 
 export const TodoList: React.FC<Props> = ({

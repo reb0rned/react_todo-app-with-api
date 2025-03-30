@@ -18,7 +18,8 @@ type Props = {
   onEditTodoTitle: (
     id: number,
     value: string,
-    setIsEditing: Dispatch<SetStateAction<boolean>>) => void
+    setIsEditing: Dispatch<SetStateAction<boolean>>,
+  ) => void;
 };
 
 export const TodoItem: React.FC<Props> = ({
@@ -31,9 +32,8 @@ export const TodoItem: React.FC<Props> = ({
   setLoading,
   onEditTodoTitle,
 }) => {
-
-  const [isEditing, setIsEditing] = useState(false)
-  const [titleEdited, setTitleEdited] = useState(todo.title)
+  const [isEditing, setIsEditing] = useState(false);
+  const [titleEdited, setTitleEdited] = useState(todo.title);
 
   const settingStatus = async (id: number, newStatus: boolean) => {
     try {
@@ -43,7 +43,7 @@ export const TodoItem: React.FC<Props> = ({
     } catch (e) {
       setError(ErrorType.update_error, 3000);
     } finally {
-      setLoading(prev => prev.filter(todoId => todoId !== id))
+      setLoading(prev => prev.filter(todoId => todoId !== id));
     }
   };
 
@@ -61,17 +61,17 @@ export const TodoItem: React.FC<Props> = ({
 
   function keyupHandler(e: KeyboardEvent) {
     if (e.key === 'Escape') {
-      setIsEditing(false)
+      setIsEditing(false);
     }
   }
 
   useEffect(() => {
-    document.addEventListener('keyup', keyupHandler)
+    document.addEventListener('keyup', keyupHandler);
 
     return () => {
-      document.removeEventListener('keyup', keyupHandler)
-    }
-  }, [isEditing])
+      document.removeEventListener('keyup', keyupHandler);
+    };
+  }, [isEditing]);
 
   return (
     <div
@@ -95,11 +95,11 @@ export const TodoItem: React.FC<Props> = ({
 
       {isEditing ? (
         <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          onEditTodoTitle(todo.id, titleEdited, setIsEditing);
-        }}
-        className="todo__edit-form"
+          onSubmit={event => {
+            event.preventDefault();
+            onEditTodoTitle(todo.id, titleEdited, setIsEditing);
+          }}
+          className="todo__edit-form"
         >
           <input
             data-cy="TodoTitleField"
@@ -107,7 +107,7 @@ export const TodoItem: React.FC<Props> = ({
             className="todo__title-field"
             placeholder="Empty todo will be deleted"
             value={titleEdited}
-            onChange={(e) => setTitleEdited(e.target.value)}
+            onChange={e => setTitleEdited(e.target.value)}
             onBlur={() => {
               onEditTodoTitle(todo.id, titleEdited, setIsEditing);
             }}

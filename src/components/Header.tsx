@@ -10,7 +10,7 @@ type Props = {
   setError: (value: ErrorType, time?: number) => void;
   setTempTodo: (value: Todo | null) => void;
   tempTodo: Todo | null;
-  onUpdateAllTodosStatus: (value: boolean) => void
+  onUpdateAllTodosStatus: (value: boolean) => void;
 };
 
 export const Header: React.FC<Props> = ({
@@ -56,15 +56,15 @@ export const Header: React.FC<Props> = ({
     }
   }, [tempTodo, todos]);
 
-  const areAllCompleted = todos.every(todo => todo.completed)
+  const areAllCompleted = todos.every(todo => todo.completed);
 
   return (
     <header className="todoapp__header">
       {todos.length > 0 && (
         <button
           type="button"
-          className={cn("todoapp__toggle-all", {
-            'active': areAllCompleted
+          className={cn('todoapp__toggle-all', {
+            active: areAllCompleted,
           })}
           data-cy="ToggleAllButton"
           onClick={() => onUpdateAllTodosStatus(areAllCompleted)}

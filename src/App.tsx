@@ -65,81 +65,82 @@ export const App: React.FC = () => {
   };
 
   const onUpdateAllTodosStatus = async (areAllCompleted: boolean) => {
-    const activeTodos = todos.filter(todo => !todo.completed)
-    const activeTodosIds = activeTodos.map(todo => todo.id)
-    const todosToUpdate = areAllCompleted ? todos : activeTodos
+    const activeTodos = todos.filter(todo => !todo.completed);
+    const activeTodosIds = activeTodos.map(todo => todo.id);
+    const todosToUpdate = areAllCompleted ? todos : activeTodos;
 
-    setLoading(activeTodosIds)
+    setLoading(activeTodosIds);
 
     try {
       await Promise.allSettled(
         todosToUpdate.map(todo =>
-          updateTodos(todo.id, { completed: !areAllCompleted })
-        )
+          updateTodos(todo.id, { completed: !areAllCompleted }),
+        ),
       );
 
       setTodos(prevTodos =>
         prevTodos.map(todo => ({
           ...todo,
           completed: !areAllCompleted,
-        }))
+        })),
       );
     } catch {
-      handleError(ErrorType.update_error, 3000)
+      handleError(ErrorType.update_error, 3000);
     } finally {
-      setLoading([])
+      setLoading([]);
     }
   };
 
   const onEditTodoTitle = async (
     id: number,
     titleEdited: string,
-    setIsEditing: Dispatch<SetStateAction<boolean>>
-    ) => {
-    const todoToUpdate = todos.find(todo => todo.id === id)
-    const newTitle = titleEdited.trim()
+    setIsEditing: Dispatch<SetStateAction<boolean>>,
+  ) => {
+    const todoToUpdate = todos.find(todo => todo.id === id);
+    const newTitle = titleEdited.trim();
 
     if (!todoToUpdate) {
-      handleError(ErrorType.loading_error, 3000)
+      handleError(ErrorType.loading_error, 3000);
+
       return;
     }
 
     if (newTitle === '') {
-      setLoading(prev => [...prev, todoToUpdate.id])
+      setLoading(prev => [...prev, todoToUpdate.id]);
       try {
-        await deleteTodos(id)
-        deleteItemFromTodos(id)
+        await deleteTodos(id);
+        deleteItemFromTodos(id);
       } catch {
-        handleError(ErrorType.delete_error)
+        handleError(ErrorType.delete_error);
       } finally {
         setLoading(prev => prev.filter(loadingId => loadingId !== id));
       }
-      return
+
+      return;
     }
 
     if (newTitle !== todoToUpdate.title) {
-
-      setLoading(prev => [...prev, todoToUpdate.id])
+      setLoading(prev => [...prev, todoToUpdate.id]);
 
       try {
-        await updateTodos(id, {...todoToUpdate, title: newTitle})
+        await updateTodos(id, { ...todoToUpdate, title: newTitle });
 
         setTodos(prev =>
           prev.map(todo =>
-            todo.id === id ? { ...todo, title: newTitle } : todo
-          )
+            todo.id === id ? { ...todo, title: newTitle } : todo,
+          ),
         );
 
         setIsEditing(false);
       } catch {
-        handleError(ErrorType.update_error, 3000)
+        handleError(ErrorType.update_error, 3000);
       } finally {
         setLoading(prev => prev.filter(loadingId => loadingId !== id));
       }
     } else {
       setIsEditing(false);
     }
-  }
+  };
 
   const filterData = (filterBy: TodoStatus) => {
     switch (filterBy) {
