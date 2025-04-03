@@ -192,7 +192,6 @@ export const App: React.FC = () => {
                   onEditTodoTitle={onEditTodoTitle}
                 />
 
-
                 <Footer
                   filterBy={filter}
                   setFilterBy={setFilter}

@@ -16,7 +16,10 @@ export const Footer: React.FC<Props> = ({
   todos,
   clearAllCompletedTodos,
 }) => {
-  const activeCount = useMemo(() => todos.filter(todo => !todo.completed).length, [todos]);
+  const activeCount = useMemo(
+    () => todos.filter(todo => !todo.completed).length,
+    [todos],
+  );
   const isCompletedInTodos = todos.some(todo => todo.completed);
 
   return (
