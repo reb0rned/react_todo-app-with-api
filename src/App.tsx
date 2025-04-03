@@ -155,11 +155,11 @@ export const App: React.FC = () => {
     }
   };
 
+  const visibleTodos = filterData(filter);
+
   useEffect(() => {
     receiveData();
   }, []);
-
-  const visibleTodos = filterData(filter);
 
   return (
     <div className="todoapp">
@@ -191,6 +191,8 @@ export const App: React.FC = () => {
                   setLoading={setLoading}
                   onEditTodoTitle={onEditTodoTitle}
                 />
+
+
                 <Footer
                   filterBy={filter}
                   setFilterBy={setFilter}

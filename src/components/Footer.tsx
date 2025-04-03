@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import cn from 'classnames';
 import { TodoStatus } from '../types/TodoStatus';
 import { Todo } from '../types/Todo';
@@ -16,7 +16,7 @@ export const Footer: React.FC<Props> = ({
   todos,
   clearAllCompletedTodos,
 }) => {
-  const activeCount = todos.filter(todo => !todo.completed).length;
+  const activeCount = useMemo(() => todos.filter(todo => !todo.completed).length, [todos]);
   const isCompletedInTodos = todos.some(todo => todo.completed);
 
   return (
