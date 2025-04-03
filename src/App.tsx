@@ -157,6 +157,7 @@ export const App: React.FC = () => {
 
   const visibleTodos = filterData(filter);
 
+
   useEffect(() => {
     receiveData();
   }, []);

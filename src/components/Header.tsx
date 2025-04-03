@@ -52,6 +52,7 @@ export const Header: React.FC<Props> = ({
 
   const areAllCompleted = todos.every(todo => todo.completed);
 
+
   useEffect(() => {
     if (inputFocus.current) {
       inputFocus.current.focus();
